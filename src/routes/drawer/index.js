@@ -50,7 +50,7 @@ const CustomDrawer = ({ state }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#111',
+    backgroundColor: '#7D1F2A',
   },
   heading: {
     color: 'white',
