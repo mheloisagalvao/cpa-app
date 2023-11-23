@@ -37,6 +37,7 @@ export default function Routes() {
         </Drawer.Screen>
         <Drawer.Screen name="Settings" component={Settings} />
       </Drawer.Navigator>
+
     </NavigationContainer>
   );
 }
