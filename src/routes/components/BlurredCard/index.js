@@ -1,4 +1,4 @@
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, useWindowDimensions, Text } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Animated, {
   FadeIn,

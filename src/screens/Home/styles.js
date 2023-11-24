@@ -32,4 +32,3 @@ export const Description = styled.Text`
     font-size: 14px;
     margin-bottom: 15px;
 `
-

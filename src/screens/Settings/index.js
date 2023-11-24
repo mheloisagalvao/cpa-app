@@ -53,11 +53,11 @@ function Settings() {
   const title = useMemo(() => {
     switch (step) {
       case 0:
-        return 'Heading 1';
+        return 'Qual matéria vai avaliar?';
       case 1:
-        return 'Heading 2';
+        return 'Qual sua avaliação da matéria?';
       case 2:
-        return 'Heading 3';
+        return 'Quantos pavãozinhos você daria para essa matéria?';
       default:
         return '';
     }
@@ -66,11 +66,11 @@ function Settings() {
   const actionTitle = useMemo(() => {
     switch (step) {
       case 0:
-        return 'Continue';
+        return 'Continuar';
       case 1:
-        return 'Accept 1';
+        return 'Continuar';
       case 2:
-        return 'Accept 2';
+        return 'Enviar';
       default:
         return '';
     }
@@ -88,9 +88,8 @@ function Settings() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
-
-      <PressableScale
+      <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', marginRight: 15,}}>
+        <PressableScale
         style={[styles.button, rToggleButtonStyle]}
         onPress={toggleActionTray}>
         <MaterialCommunityIcons
@@ -99,12 +98,16 @@ function Settings() {
           color={colors.Palette.background}
         />
       </PressableScale>
+      </View>
+
 
       <ActionTray
         ref={ref}
         maxHeight={screenHeight * 0.6}
         style={styles.actionTray}
-        onClose={close}>
+        onClose={close}
+        >
+        
         <View style={styles.headingContainer}>
           <Text style={styles.headingText}>{title}</Text>
           <View style={styles.fill} />
@@ -182,15 +185,12 @@ function Settings() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.Palette.background,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   fill: { flex: 1 },
   button: {
-    marginTop: 200,
+    marginTop: '100%',
     height: 50,
-    backgroundColor: colors.Palette.primary,
+    backgroundColor: colors.unicap,
     borderRadius: 25,
     aspectRatio: 1,
     justifyContent: 'center',
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     flex: 1,
     padding: 25,
+    position: 'relative',
   },
   headingContainer: {
     flexDirection: 'row',
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
     color: colors.Palette.text,
   },
   continueButton: {
-    backgroundColor: colors.Palette.primary,
+    backgroundColor: colors.unicap,
     justifyContent: 'center',
     alignItems: 'center',
     height: 55,

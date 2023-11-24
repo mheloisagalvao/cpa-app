@@ -11,6 +11,7 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
+import { Text, View } from 'react-native';
 
 const BlurredItem = ({
   index,
@@ -70,13 +71,11 @@ const BlurredItem = ({
   }, []);
 
   return (
-    <Animated.View style={rContainerStyle}>
+    <View style={{ position: 'relative' }}>
       <Canvas
         style={{
           width: width,
           height: blurredItemContainerHeight,
-          
-          
         }}>
         <Group
           transform={transformGroup}
@@ -99,7 +98,19 @@ const BlurredItem = ({
           <BlurMask blur={blur} />
         </Group>
       </Canvas>
-    </Animated.View>
+      <Text
+        style={{
+          position: 'absolute',
+          top: verticalPadding / 8 + 10,
+          left: horizontalPadding / 2 + 10, 
+          color: '#fff',
+          fontSize: 18,
+          fontWeight: 'bold',
+          padding: 40,
+        }}>
+        Your Text Here
+      </Text>
+    </View>
   );
 };
 
