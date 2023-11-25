@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import { Container, Description, Title } from "./styles"
+import { Container, Title } from "./styles";
 import { Input, Button, YStack } from 'tamagui';
 import axios from 'axios';
+import { useUser } from '../../contexts/userContext';
 
-export default function SignIn() {
+export default function SignIn({navigation}) {
+  const authLogin = () => {
+    navigation.navigate('Home');
+  }
+
+  const { setLoggedInUserId } = useUser();
+
   const [email, setEmail] = useState('');
   const [curso, setCurso] = useState('');
   const [ra, setRa] = useState('');
@@ -11,16 +18,24 @@ export default function SignIn() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('https://server-teal-two.vercel.app/users', {
+      const response = await axios.post('http://server-gold-pi.vercel.app/users', {
         email,
         password,
         name: "Nome do Usuário", 
         login: "nome_usuario",  
         courseName: curso,
-        avatarUrl: "https://example.com/avatar.jpg"  
+        avatarUrl: "https://www.github.com/athospugliesedev.png"  
       });
 
+      const userId = response.data.id;
+
+      setLoggedInUserId(userId);
+
       console.log(response.data);
+
+      if (response.status === 200) {
+        authLogin();
+      }
 
     } catch (error) {
       console.error('Erro ao enviar dados:', error);

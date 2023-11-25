@@ -19,6 +19,7 @@
     "@tamagui/config": "^1.79.1",
     "@tamagui/core": "^1.79.1",
     "@types/react": "~18.2.14",
+    "axios": "^1.6.2",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
     "expo": "~49.0.15",
     "expo-font": "~11.4.0",

@@ -6,13 +6,16 @@ import Login from "../screens/Login";
 import Settings from "../screens/Settings";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { CustomDrawer } from "./drawer";
+import SignIn from "../screens/SignIn";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export default function Routes() {
   return (
-    <NavigationContainer>
+    <NavigationContainer
+    initialRouteName="SignIn"
+    >
       <Drawer.Navigator
         defaultStatus="closed"
         screenOptions={{
@@ -25,13 +28,13 @@ export default function Routes() {
         <Drawer.Screen name="Home">
           {() => (
             <Stack.Navigator
-              initialRouteName="Home"
               screenOptions={{
                 headerShown: false,
               }}
             >
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="SignIn" component={SignIn} />
             </Stack.Navigator>
           )}
         </Drawer.Screen>
