@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Title } from "./styles";
-import { Input, Button, YStack, RadioGroup, XStack, Label } from 'tamagui';
+import { Avatar, Input, Button, YStack, RadioGroup, XStack, Label } from 'tamagui';
 import axios from 'axios';
 import { useUser } from '../../contexts/userContext';
 import { colors } from '../../utils/colors';
+import * as ImagePicker from 'expo-image-picker';
 
 
 const cursos = [
@@ -16,6 +17,26 @@ export default function SignIn({ navigation }) {
   const authLogin = () => {
     navigation.navigate('Home');
   }
+
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+
+  const [image, setImage] = useState(null);
+
 
   const { setLoggedInUserId } = useUser();
   const [name, setName] = useState('');
@@ -38,7 +59,7 @@ export default function SignIn({ navigation }) {
         name,
         login,
         courseName: curso,
-        avatarUrl: "https://www.github.com/athospugliesedev.png"
+        avatarUrl: image,
       });
 
       const userId = response.data.id;
@@ -61,6 +82,16 @@ export default function SignIn({ navigation }) {
       <Title>
         Tela de Cadastro
       </Title>
+
+      <XStack alignItems="center" space="$6">
+        <Avatar onPress={pickImage} circular size="$10">
+          <Avatar.Image
+            accessibilityLabel="Cam"
+            src={{uri: image || 'https://archive.org/download/placeholder-image/placeholder-image.jpg'}}
+          />
+          <Avatar.Fallback backgroundColor="$blue10" />
+        </Avatar>
+      </XStack>
       <Input id="login" placeholder="Usuário" value={login} onChangeText={setLogin} height={40} width={250} borderWidth={2} borderColor={colors.coolGray[200]} />
       <Input id="name" placeholder="Nome completo" value={name} onChangeText={setName} height={40} width={250} borderWidth={2} borderColor={colors.coolGray[200]} />
       <Input id="email" placeholder="aluno.00000@unicap.br" value={email} onChangeText={setEmail} height={40} width={250} borderWidth={2} borderColor={colors.coolGray[200]} />
