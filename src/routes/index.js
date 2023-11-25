@@ -13,34 +13,31 @@ const Drawer = createDrawerNavigator();
 
 export default function Routes() {
   return (
-    <NavigationContainer
-    initialRouteName="SignIn"
-    >
-      <Drawer.Navigator
-        defaultStatus="closed"
+    <NavigationContainer initialRouteName="SignIn">
+      <Stack.Navigator
         screenOptions={{
-          overlayColor: 'transparent',
-          drawerType: 'slide',
-          headerTintColor: '#111',
+          headerShown: false,
         }}
-        drawerContent={CustomDrawer}
       >
-        <Drawer.Screen name="Home">
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="Home">
           {() => (
-            <Stack.Navigator
+            <Drawer.Navigator
+              defaultStatus="closed"
               screenOptions={{
-                headerShown: false,
+                overlayColor: 'transparent',
+                drawerType: 'slide',
+                headerTintColor: '#111',
               }}
+              drawerContent={CustomDrawer}
             >
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="SignIn" component={SignIn} />
-            </Stack.Navigator>
+              <Drawer.Screen name="Home" component={Home} />
+              <Drawer.Screen name="Settings" component={Settings} />
+            </Drawer.Navigator>
           )}
-        </Drawer.Screen>
-        <Drawer.Screen name="Settings" component={Settings} />
-      </Drawer.Navigator>
-
+        </Stack.Screen>
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
