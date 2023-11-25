@@ -27,10 +27,10 @@ const Home = () => {
 
   return (
     <Container>
-      <XStack space="$2" ai="center">
+      <XStack space="$2" ai="center" marginTop="20%" paddingBottom="$2">
         {userData ? (
           <Avatar size="$5" circular>
-            <Avatar.Image src={userData.avatarUrl} />
+            <Avatar.Image src={{ uri: userData.avatarUrl}} />
             <Avatar.Fallback backgroundColor="$gray5" />
           </Avatar>
         ) : null}

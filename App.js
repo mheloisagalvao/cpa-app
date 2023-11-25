@@ -7,6 +7,7 @@ import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from './tamagui.config';
 import { UserProvider } from './src/contexts/userContext';
 import SignIn from './src/screens/SignIn';
+import Settings from './src/screens/Settings';
 
 export default function App() {
   return (

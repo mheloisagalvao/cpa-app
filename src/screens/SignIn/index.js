@@ -15,7 +15,7 @@ const cursos = [
 
 export default function SignIn({ navigation }) {
   const authLogin = () => {
-    navigation.navigate('Home');
+    navigation.navigate('DrawerScreens');
   }
 
 

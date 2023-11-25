@@ -19,6 +19,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { PressableScale } from '../../routes/components/TouchableScale';
 import { ActionTray } from '../../routes/components/ActionTray';
 import { colors } from '../../utils/colors';
+import Rating from '../../routes/components/Rating';
 
 function Settings() {
   const ref = useRef(null);
@@ -41,7 +42,7 @@ function Settings() {
   }, [close, isActionTrayOpened]);
 
   const rContentHeight = useDerivedValue(() => {
-    return interpolate(step, [0, 1, 2], [80, 200, 250], Extrapolate.CLAMP);
+    return interpolate(step, [0, 1, 2], [80, 80, 80], Extrapolate.CLAMP);
   }, [step]);
 
   const rContentStyle = useAnimatedStyle(() => {
@@ -149,7 +150,7 @@ function Settings() {
               entering={FadeIn.delay(100)}
               exiting={FadeOut.delay(100)}
               style={{ flex: 1 }}>
-              <Text style={styles.contentText}>
+              {/* <Text style={styles.contentText}>
                 Waaait a second! Actually I have something to say.{'\n\n'}
                 If you are reading this, you're probably searching for the
                 source code!{'\n\n'}
@@ -161,7 +162,9 @@ function Settings() {
                   }}>
                   patreon.com/reactiive
                 </Text>
-              </Text>
+              </Text> */}
+
+              <Rating />
             </Animated.View>
           )}
         </Animated.View>

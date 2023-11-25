@@ -12,6 +12,9 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState('');
   const { setLoggedInUserId } = useUser();
 
+const toRegister = async () => {
+  navigation.navigate('SignIn')
+}
 
   const authLogin = async () => {
     try {
@@ -44,7 +47,7 @@ export default function Login({navigation}) {
           Entrar
         </Button.Text>
       </Button>
-      <Button size="$3" variant="outlined">
+      <Button size="$3" variant="outlined" onPress={toRegister}>
         <Button.Text>
           Criar conta
         </Button.Text>
