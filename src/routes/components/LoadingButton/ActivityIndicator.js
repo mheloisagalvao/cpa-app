@@ -9,8 +9,7 @@ import {
   rect,
 } from "@shopify/react-native-skia";
 import { useEffect, useMemo } from "react";
-import {
-  Animated,
+import Animated, {
   Easing,
   cancelAnimation,
   useAnimatedStyle,
