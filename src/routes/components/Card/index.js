@@ -47,7 +47,7 @@ const CardComponent = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://server-gold-pi.vercel.app/posts?userId=${userId}`, {
+      const response = await axios.get(`https://server-gold-pi.vercel.app/posts/all`, {
         headers: {
           Authorization: `Bearer ${userData.token}`,
         },
