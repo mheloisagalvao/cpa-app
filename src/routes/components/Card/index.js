@@ -24,18 +24,16 @@ const fetchData = async (userId, token) => {
 
 const CardItem = ({ post }) => {
   return (
-    <Animated.View style={styles.cardContainer} layout={Layout} entering={FadeIn} exiting={FadeOut}>
-      <View style={styles.cardContainer}>
-        <YStack backgroundColor='#cc3244'>
-          <Text style={styles.title}>{post.title}</Text>
-          <Text style={styles.excerpt}>{post.content}</Text>
+    <Animated.View  layout={Layout} entering={FadeIn} exiting={FadeOut}>
+        <Card width={350} padding={20} backgroundColor='#cc3244'>
+          <H4 color='white'>{post.title}</H4>
+          <Paragraph color='white'>{post.content}</Paragraph>
           <Separator borderColor='white' alignSelf="stretch" marginVertical={15} />
           <XStack justifyContent='flex-start'>
           <Image source={pavao} style={{ width: 25, height: 25, marginRight: 8, alignSelf: 'center'}} resizeMode='contain'/>
           <Paragraph marginTop={4} color='white' alignSelf='center' fontSize={12}>{post.rating} / 5</Paragraph>
           </XStack>
-        </YStack>
-      </View>
+        </Card>
     </Animated.View>
   );
 };
@@ -74,40 +72,23 @@ const CardComponent = () => {
     return <Spinner size="large" color={colors.unicap} />;
   }
 
+  const SeparatorDiv = () => {
+    return <View style={{ height: 20 }} />
+  };
+  
+
   return (
-    <YStack>
+    <YStack alignItems='center' justifyContent='center'>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <CardItem post={item} />}
         contentContainerStyle={{ paddingBottom: 120 }}  
+        ItemSeparatorComponent={() => <SeparatorDiv />} 
+        showsVerticalScrollIndicator={false}
       />
     </YStack>
   );
 };
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    margin: 10,
-    padding: 15,
-    backgroundColor: '#cc3244',
-    borderRadius: 20,
-  },
-  title: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  excerpt: {
-    color: '#fff',
-    fontSize: 14,
-    marginBottom: 5,
-  },
-  rating: {
-    color: '#fff',
-    fontSize: 14,
-  },
-});
 
 export default CardComponent;
