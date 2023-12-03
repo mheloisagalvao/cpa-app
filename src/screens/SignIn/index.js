@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Container, Title } from "./styles";
 import { Avatar, Input, Button, YStack, RadioGroup, XStack, Label } from 'tamagui';
 import axios from 'axios';
 import { useUser } from '../../contexts/userContext';
@@ -18,6 +17,9 @@ export default function SignIn({ navigation }) {
     navigation.navigate('DrawerScreens');
   }
 
+  const cancelSignIn = () => {
+    navigation.push('Login')
+  }
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -79,10 +81,6 @@ export default function SignIn({ navigation }) {
   
   return (
     <YStack fullscreen bg={"$red10"} justifyContent="center" alignItems="center" padding="$2" gap="$2" minWidth={250} space="$2">
-      <Title>
-        Tela de Cadastro
-      </Title>
-
       <XStack alignItems="center" space="$6">
         <Avatar onPress={pickImage} circular size="$10">
           <Avatar.Image
@@ -110,7 +108,7 @@ export default function SignIn({ navigation }) {
           Entrar
         </Button.Text>
       </Button>
-      <Button size="$3" variant="outlined">
+      <Button onPress={cancelSignIn} size="$3" variant="outlined">
         <Button.Text>
           Voltar
         </Button.Text>

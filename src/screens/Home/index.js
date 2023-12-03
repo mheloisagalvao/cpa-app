@@ -5,7 +5,6 @@ import { BlurredCard } from "../../routes/components/BlurredCard";
 import Settings from "../Settings";
 import axios from "axios";
 import { useUser } from "../../contexts/userContext";
-import { Title, Container } from "./styles";
 import CardComponent, { CardItem } from "../../routes/components/Card";
 import { colors } from "../../utils/colors";
 

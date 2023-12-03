@@ -10,6 +10,7 @@ import { CustomDrawer, DrawerIcon } from "./drawer";
 import SignIn from "../screens/SignIn";
 import { App } from "../screens/Testing";
 import { colors } from "../utils/colors";
+import MyPosts from "../screens/MyPosts";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -36,7 +37,15 @@ const DrawerScreens = () => (
       }
     }}
 />
-    <Drawer.Screen name="Settings" component={Settings} />
+    <Drawer.Screen name="Minhas postagens"
+    component={MyPosts}
+    options={{
+      title: '',
+      headerStyle:{
+        backgroundColor: colors.unicap,
+      }
+    }}
+    />
     <Drawer.Screen name="App" component={App} />
 
   </Drawer.Navigator>

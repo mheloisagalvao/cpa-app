@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Container, Description, Title } from "./styles"
 import { Button, Input, Label, Switch, XStack, YStack } from 'tamagui'
 import { Image } from 'react-native'
 import pombabranca from '../../assets/PombaBranca_PNG.png'
@@ -25,7 +24,6 @@ const authLogin = async () => {
 
     const { id: userId, token } = response.data;
 
-    // Set both userId and token in the context
     setLoggedInUserId(userId, token);
 
     navigation.navigate('DrawerScreens', { userId });
@@ -39,9 +37,6 @@ const authLogin = async () => {
 
   return (
     <YStack fullscreen bg={"$red10"} justifyContent="center" alignItems="center" padding="$2" gap="$2" minWidth={250} space="$2">
-      <Title>
-        Tela de Login
-      </Title>
       <Image source={pombabranca} style={{ width: 115, height: 100 }} resizeMode='stretch' />
       <Input id="email" placeholder="aluno.00000@unicap.br" value={email} onChangeText={setEmail} height={40} width={250} borderWidth={2} borderColor={colors.coolGray[200]} />
       <Input id="password" placeholder="Senha" textContentType="password" secureTextEntry value={password} onChangeText={setPassword} height={40} width={250} borderWidth={2} borderColor={colors.coolGray[200]} />
@@ -55,7 +50,6 @@ const authLogin = async () => {
           Criar conta
         </Button.Text>
       </Button>
-      <Description></Description>
     </YStack>
   )
 }
