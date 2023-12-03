@@ -11,7 +11,8 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
 } from 'react-native-reanimated';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
+import pavao from '../../../assets/0_Estrelas.png'
 
 const BlurredItem = ({
   index,
@@ -20,6 +21,7 @@ const BlurredItem = ({
   width,
   height: blurredItemContainerHeight,
   contentOffsetY,
+  post
 }) => {
   const inputRange = [
     (index - 1) * blurredItemContainerHeight,
@@ -98,17 +100,41 @@ const BlurredItem = ({
           <BlurMask blur={blur} />
         </Group>
       </Canvas>
+      <View style={{ position: 'absolute', flex: 1, flexDirection: 'row' }}>
+        <Text
+          style={{
+            position: 'absolute',
+            top: verticalPadding / 8 + 40,
+            left: horizontalPadding / 2 + 10,
+            color: '#fff',
+            fontSize: 14,
+            padding: 40,
+            flexWrap: 'wrap',
+          }}>
+          {post.excerpt}
+        </Text>
+      </View>
+
       <Text
         style={{
           position: 'absolute',
-          top: verticalPadding / 8 + 10,
-          left: horizontalPadding / 2 + 10, 
+          left: horizontalPadding / 2 + 10,
           color: '#fff',
-          fontSize: 18,
-          fontWeight: 'bold',
+          fontSize: 14,
           padding: 40,
         }}>
-        Your Text Here
+        {post.title}
+      </Text>
+      <Text
+        style={{
+          position: 'absolute',
+          top: verticalPadding / 8 + 8,
+          left: horizontalPadding / 2 + 10,
+          color: '#fff',
+          fontSize: 14,
+          padding: 40,
+        }}>
+        {post.rating} / 5
       </Text>
     </View>
   );

@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Rating = () => {
+const Rating = ({ onRatingChange }) => {
   const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    // Notify the parent component when the rating changes
+    onRatingChange(rating);
+  }, [rating, onRatingChange]);
 
   const handleRating = (selectedRating) => {
     setRating(selectedRating);
@@ -18,7 +23,11 @@ const Rating = () => {
           style={styles.ratingItem}
         >
           <Image
-            source={item <= rating ? require('../../../assets/5_Estrelas.png') : require('../../../assets/0_Estrelas.png')}
+            source={
+              item <= rating
+                ? require('../../../assets/5_Estrelas.png')
+                : require('../../../assets/0_Estrelas.png')
+            }
             style={styles.image}
           />
         </TouchableOpacity>
@@ -38,8 +47,8 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   image: {
-    width: 35, 
-    height: 35, 
+    width: 35,
+    height: 35,
   },
 });
 

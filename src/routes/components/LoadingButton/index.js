@@ -14,7 +14,7 @@ import Animated, {
 } from "react-native-reanimated";
 import Color from "color";
 
-import { ActivityIndicator } from "./activity-indicator";
+import { ActivityIndicator } from "./ActivityIndicator";
 
 const MotifiedAnimatedText = motify(Animated.Text)();
 

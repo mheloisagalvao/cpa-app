@@ -61,22 +61,22 @@ export default function SignIn({ navigation }) {
         courseName: curso,
         avatarUrl: image,
       });
-
-      const userId = response.data.id;
-
-      setLoggedInUserId(userId);
-
+  
+      const { id: userId, token } = response.data;
+  
+      setLoggedInUserId(userId, token);
+  
       console.log(response.data);
-
+  
       if (response.status === 200) {
         authLogin();
       }
-
+  
     } catch (error) {
       console.error('Erro ao enviar dados:', error);
     }
   };
-
+  
   return (
     <YStack fullscreen bg={"$red10"} justifyContent="center" alignItems="center" padding="$2" gap="$2" minWidth={250} space="$2">
       <Title>

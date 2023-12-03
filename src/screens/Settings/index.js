@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, useWindowDimensions, StyleSheet } from 'react-native';
+import { View, Text, useWindowDimensions, StyleSheet, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Animated, {
   Easing,
@@ -20,8 +20,22 @@ import { PressableScale } from '../../routes/components/TouchableScale';
 import { ActionTray } from '../../routes/components/ActionTray';
 import { colors } from '../../utils/colors';
 import Rating from '../../routes/components/Rating';
+import { Input } from 'tamagui'
+import axios from 'axios';
+import { useUser } from '../../contexts/userContext';
+
 
 function Settings() {
+
+  const [titleInput, setTitleInput] = useState('')
+  const [description, setDescription] = useState('')
+  const [selectedRating, setSelectedRating] = useState(0);
+
+  const handleRatingChange = (rating) => {
+    setSelectedRating(rating);
+  };
+
+  const { userData } = useUser();
   const ref = useRef(null);
   const { height: screenHeight } = useWindowDimensions();
 
@@ -42,7 +56,7 @@ function Settings() {
   }, [close, isActionTrayOpened]);
 
   const rContentHeight = useDerivedValue(() => {
-    return interpolate(step, [0, 1, 2], [80, 80, 80], Extrapolate.CLAMP);
+    return interpolate(step, [0, 1, 2], [80, 160, 60], Extrapolate.CLAMP);
   }, [step]);
 
   const rContentStyle = useAnimatedStyle(() => {
@@ -87,18 +101,49 @@ function Settings() {
     };
   }, []);
 
+  const handleSubmit = async () => {
+    try {
+      const token = userData.token; 
+
+      const response = await axios.post(
+        'https://server-gold-pi.vercel.app/posts',
+        {
+          title: titleInput,
+          content: description,
+          rating:  selectedRating,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        close();
+      } else {
+        console.error('Error posting data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error posting data:', error);
+    }
+  };
+
+
   return (
+
     <View style={styles.container}>
-      <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', marginRight: 15,}}>
+      <View style={{ alignItems: 'flex-end', justifyContent: 'flex-end', marginRight: 15, }}>
         <PressableScale
-        style={[styles.button, rToggleButtonStyle]}
-        onPress={toggleActionTray}>
-        <MaterialCommunityIcons
-          name="plus"
-          size={25}
-          color={colors.Palette.background}
-        />
-      </PressableScale>
+          style={[styles.button, rToggleButtonStyle]}
+          onPress={toggleActionTray}>
+          <MaterialCommunityIcons
+            name="plus"
+            size={25}
+            color={colors.Palette.background}
+          />
+        </PressableScale>
       </View>
 
 
@@ -107,8 +152,8 @@ function Settings() {
         maxHeight={screenHeight * 0.6}
         style={styles.actionTray}
         onClose={close}
-        >
-        
+      >
+
         <View style={styles.headingContainer}>
           <Text style={styles.headingText}>{title}</Text>
           <View style={styles.fill} />
@@ -123,25 +168,32 @@ function Settings() {
 
         <Animated.View style={rContentStyle}>
           {step === 0 && (
-            <Animated.Text
+            <Animated.View
               layout={Layout.easing(Easing.linear).duration(250)}
               exiting={FadeOut.delay(100)}
               style={styles.contentText}>
-              Content here
-            </Animated.Text>
+              <Input id="titleInput" placeholder="Matéria" value={titleInput} onChangeText={setTitleInput} height={35} width={320} borderWidth={2} borderColor={colors.unicap} />
+            </Animated.View>
           )}
           {step === 1 && (
             <Animated.View
               layout={Layout.easing(Easing.linear).duration(250)}
               entering={FadeIn.delay(100)}
               exiting={FadeOut.delay(100)}
-              style={{ flex: 1 }}>
-              <Text style={styles.contentText}>
-                You know what? I really don't know what to write here.{'\n\n'}I
-                just want to make this text long enough to test the animation.
-                So I am just typing some random words here.{'\n'}I hope this is
-                enough.
-              </Text>
+              style={{
+                flex: 1, marginTop: 15,
+                marginBottom: 25,
+              }}>
+                         <Input id="description" style={{
+                flex: 1,
+                justifyContent: 'flex-start',
+                alignItems: 'flex-start',
+                textAlignVertical: 'top',
+              }}
+                placeholder="Sua avaliação" value={description} onChangeText={setDescription} height={120} width={320} borderWidth={2} borderColor={colors.unicap} multiline />
+
+
+
             </Animated.View>
           )}
           {step === 2 && (
@@ -150,34 +202,23 @@ function Settings() {
               entering={FadeIn.delay(100)}
               exiting={FadeOut.delay(100)}
               style={{ flex: 1 }}>
-              {/* <Text style={styles.contentText}>
-                Waaait a second! Actually I have something to say.{'\n\n'}
-                If you are reading this, you're probably searching for the
-                source code!{'\n\n'}
-                If I'm right, you can find it here:{'\n'}
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                    color: 'rgba(0,0,0,0.5)',
-                  }}>
-                  patreon.com/reactiive
-                </Text>
-              </Text> */}
 
-              <Rating />
+              <Rating onRatingChange={handleRatingChange} />
             </Animated.View>
           )}
         </Animated.View>
 
         <PressableScale
-          style={styles.continueButton}
-          onPress={() => {
-            if (step === 2) {
-              close();
-              return;
-            }
-            setStep(currentStep => currentStep + 1);
-          }}>
+                style={styles.continueButton}
+                onPress={() => {
+                  if (step === 2) {
+                    handleSubmit(); 
+                    close();
+                    return;
+                  }
+                  setStep((currentStep) => currentStep + 1);
+                }}
+        >
           <Text style={styles.buttonText}>{actionTitle}</Text>
         </PressableScale>
       </ActionTray>

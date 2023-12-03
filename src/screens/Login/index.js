@@ -16,21 +16,24 @@ const toRegister = async () => {
   navigation.navigate('SignIn')
 }
 
-  const authLogin = async () => {
-    try {
-      const response = await axios.post('http://server-gold-pi.vercel.app/users/authenticate', {
-        email,
-        password,
-      });
+const authLogin = async () => {
+  try {
+    const response = await axios.post('http://server-gold-pi.vercel.app/users/authenticate', {
+      email,
+      password,
+    });
 
-      const userId = response.data.id;
-      setLoggedInUserId(userId);
+    const { id: userId, token } = response.data;
 
-      navigation.navigate('DrawerScreens', { userId });
-    } catch (error) {
-      console.error('Erro de autenticação:', error);
-    }
-  };
+    // Set both userId and token in the context
+    setLoggedInUserId(userId, token);
+
+    navigation.navigate('DrawerScreens', { userId });
+  } catch (error) {
+    console.error('Erro de autenticação:', error);
+  }
+};
+
 
 
 
