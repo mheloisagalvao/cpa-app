@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Modal, TextInput, TouchableWithoutFeedback } from 'react-native';
-import { Card, Spinner, YStack, Separator, XStack, Paragraph, H5, CardBackground, H4 } from 'tamagui';
+import { Card, Spinner, YStack, Separator, XStack, Paragraph, H5, CardBackground, H4, Input } from 'tamagui';
 import axios from 'axios';
 import pavao from '../../assets/PombaBranca_PNG.png';
 import { useUser } from '../../contexts/userContext';
@@ -102,7 +102,7 @@ const MyPosts = () => {
 
   const CardItem = ({ post }) => {
     return (
-      <Card width={350} backgroundColor='#cc3244' padding={20}>
+      <Card width={320} backgroundColor='#cc3244' padding={20}>
         <H4 color='white'>{post.title}</H4>
         <Paragraph color='white'>{post.content}</Paragraph>
         <Separator borderColor='white' alignSelf="stretch" marginVertical={15} />
@@ -127,12 +127,12 @@ const MyPosts = () => {
   };
 
   return (
-    <YStack fullscreen alignItems='center' justifyContent='center' flex={1} padding={20}>
+    <YStack fullscreen justifyContent="center" alignItems="center" backgroundColor="white">
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <CardItem post={item} />}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: 120, marginTop: 25, }}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <SeparatorDiv />} 
       />
@@ -144,32 +144,38 @@ const MyPosts = () => {
         onRequestClose={closeModal}
       >
         <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
-            <YStack flex={1} alignSelf='center' backgroundColor={'transparent'}>
-              <Card width={350} padding={20} backgroundColor='#cc3244' >
-                <TextInput
+          <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center', paddingTop: 120, }}>
+            
+            <YStack flex={1}>
+              <Card width={350} padding={20} backgroundColor='#cc3244' space="$3">
+                <Input
                   placeholder="Title"
                   value={editedPost.title}
                   onChangeText={(text) => setEditedPost({ ...editedPost, title: text })}
                 />
-                <TextInput
+                <Input
                   placeholder="Content"
                   value={editedPost.content}
                   onChangeText={(text) => setEditedPost({ ...editedPost, content: text })}
                 />
-                <TextInput
+                <Input
                   placeholder="Rating"
                   value={editedPost.rating ? editedPost.rating.toString() : ''}
                   onChangeText={(text) => setEditedPost({ ...editedPost, rating: text })}
                 />
-                <TouchableOpacity onPress={saveChanges}>
-                  <Text>Save Changes</Text>
+                <XStack justifyContent='space-between'>
+                   <TouchableOpacity onPress={saveChanges}>
+                  <Paragraph color='white'>Salvar</Paragraph>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={closeModal}>
-                  <Text>Cancel</Text>
+                  <Paragraph color='white'>Cancelar</Paragraph>
                 </TouchableOpacity>
+                </XStack>
+               
               </Card>
-            </YStack>
+
+
+           </YStack>
           </View>
         </TouchableWithoutFeedback>
       </Modal>

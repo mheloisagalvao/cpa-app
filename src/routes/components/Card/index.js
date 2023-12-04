@@ -25,7 +25,7 @@ const fetchData = async (userId, token) => {
 const CardItem = ({ post }) => {
   return (
     <Animated.View  layout={Layout} entering={FadeIn} exiting={FadeOut}>
-        <Card width={350} padding={20} backgroundColor='#cc3244'>
+        <Card width={320} padding={20} backgroundColor='#cc3244'>
           <H4 color='white'>{post.title}</H4>
           <Paragraph color='white'>{post.content}</Paragraph>
           <Separator borderColor='white' alignSelf="stretch" marginVertical={15} />
