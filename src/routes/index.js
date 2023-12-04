@@ -46,7 +46,6 @@ const DrawerScreens = () => (
       }
     }}
     />
-    <Drawer.Screen name="App" component={App} />
 
   </Drawer.Navigator>
 );

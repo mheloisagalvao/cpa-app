@@ -122,6 +122,10 @@ const MyPosts = () => {
     );
   };
 
+  const SeparatorDiv = () => {
+    return <View style={{ height: 20 }} />
+  };
+
   return (
     <YStack fullscreen alignItems='center' justifyContent='center' flex={1} padding={20}>
       <FlatList
@@ -129,6 +133,8 @@ const MyPosts = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <CardItem post={item} />}
         contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => <SeparatorDiv />} 
       />
 
       <Modal
